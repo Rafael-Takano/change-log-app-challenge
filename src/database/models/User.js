@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     login: {
       type: String,
       required: true,
-      trim: true
+      trim: true      
     },
     password: {
       type: String,
@@ -18,14 +18,13 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        required: true,
         trim: true,
     }
   })
 
 userSchema.methods.generateAuthToken = async () => {
     const user =  this
-    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
+    const token = jwt.sign({ _id: user.login }, process.env.JWT_SECRET)
 
     return token
 }
@@ -40,14 +39,14 @@ userSchema.statics.findByCredentials = async (login, password) => {
     return user
 }
 
-userSchema.pre('save', async (next) => {
-    const user = this
-    if(user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password,8)
+userSchema.pre('save', async function (next) {
+    const user = this;
+  
+    if (user.isModified('password')) {
+      user.password = await bcrypt.hash(user.password, 8);
     }
-
-    next()
-})
+    next();
+});
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
