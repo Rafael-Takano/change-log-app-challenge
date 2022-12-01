@@ -43,4 +43,4 @@ const testRoute = async (req, res) => {
     return res.status(200).send(`Seja bem vindo ${req.body.login}!`);
 }
 
-module.exports = {login, createUser, testRoute}
+module.exports = {login, createUser, testRoute, User}
