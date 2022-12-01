@@ -9,4 +9,6 @@ router.post('/signin', UserController.login)
 
 router.post('/signup', UserController.createUser)
 
+router.delete('/remove', UserController.deleteUser)
+
 module.exports = router
