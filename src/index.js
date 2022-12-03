@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 require('./database/mongoose')
 
+const updateController = require('./controllers/UpdateController')
+
 const port = process.env.PORT
 
 const user = require('./routes/User')
@@ -13,6 +15,8 @@ app.use(express.json())
 app.get('/', (req,res) => {
     res.send("Hi, I'm working!")
 })
+
+app.post('/update', updateController.addUpdate)
 
 app.use('/user', user)
 
