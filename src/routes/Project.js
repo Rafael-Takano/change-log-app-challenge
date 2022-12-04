@@ -1,5 +1,6 @@
 const express = require('express')
 const ProjectController = require('../controllers/ProjectController')
+const update = require('./Update') 
 
 const router = express.Router()
 
@@ -14,5 +15,7 @@ router.post('/:project', ProjectController.addProject)
 router.put('/:project', ProjectController.modifyProject)
 
 router.delete('/:project', ProjectController.deleteProject)
+
+router.use('/:project/update', update)
 
 module.exports = router

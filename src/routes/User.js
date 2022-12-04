@@ -3,11 +3,11 @@ const UserController = require('../controllers/UserController')
 
 const router = express.Router()
 
-router.get('/', UserController.testRoute)
-
 router.post('/signin', UserController.login)
 
 router.post('/signup', UserController.createUser)
+
+router.put('/changepassword', UserController.change_password)
 
 router.delete('/remove', UserController.deleteUser)
 

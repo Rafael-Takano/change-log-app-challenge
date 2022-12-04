@@ -6,8 +6,6 @@ module.exports = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '')
         let decoded = jwt.verify(token, process.env.JWT_SECRET)
-    
-        console.log(decoded)
 
         let user = await User.findOne({
             _id: decoded._id

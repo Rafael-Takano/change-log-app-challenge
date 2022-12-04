@@ -3,7 +3,8 @@ const User = require('../database/models/user')
 const login = async (req,res) => {
     try{
         let user = await User.findByCredentials(req.body.login, req.body.password)
-        if(!user) return res.status(404).send({error: "Wrong Credentials"})
+        if(!user) 
+            return res.status(404).send({error: "Wrong Credentials"})
 
         const token = await user.generateAuthToken();
 
@@ -21,7 +22,8 @@ const login = async (req,res) => {
 const createUser = async (req,res) => {
     
     let exists = await User.findOne({ login: req.body.login })
-    if(exists) return res.status(400).send({error: `User ${req.body.login} already exists`})
+    if(exists) 
+        return res.status(400).send({error: `User ${req.body.login} already exists`})
 
     try {
         const user = new User({
@@ -44,10 +46,36 @@ const createUser = async (req,res) => {
     }
 }
 
+const change_password = async (req,res) => {
+    let exists = await User.findOne({ login: req.body.login })
+    if(!exists) 
+        return res.status(400).send({error: `User ${req.body.login} doesn't exists`})
+    try{
+        let user = await User.findByCredentials(req.body.login, req.body.oldPassword)
+        if(!user) 
+            return res.status(404).send({error: "Wrong Credentials"})
+        
+        user.password = req.body.newPassword
+        
+        await user.save();
+        const token = await user.generateAuthToken();
+
+        return res.status(200).send({
+            token, 
+            login: user.login
+        })
+    }
+    catch (error) {
+
+        return res.status(500).send({error})
+    }
+}
+
 const deleteUser = async (req,res) => {
     try{
         let user = await User.findByCredentials(req.body.login, req.body.password)
-        if(!user) return res.status(404).send({error: "Wrong Credentials"})
+        if(!user) 
+            return res.status(404).send({error: "Wrong Credentials"})
 
         console.log(user)
 
@@ -65,8 +93,5 @@ const deleteUser = async (req,res) => {
     }
 }
 
-const testRoute = async (req, res) => {
-    return res.status(200).send(`Seja bem vindo ${req.body.login}!`);
-}
 
-module.exports = {login, createUser, testRoute, deleteUser, User}
+module.exports = {login, change_password, createUser, deleteUser, User}
