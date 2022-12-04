@@ -5,6 +5,8 @@ const router = express.Router()
 
 router.get('/', UpdateController.readUpdateAll)
 
+router.get('/byName/:name', UpdateController.readUpdateName)
+
 router.get('/byCreator/:creator', UpdateController.readUpdateCreator)
 
 router.get('/byDate/:date', UpdateController.readUpdateDate)

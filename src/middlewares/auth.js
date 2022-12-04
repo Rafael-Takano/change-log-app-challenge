@@ -7,11 +7,12 @@ module.exports = async (req, res, next) => {
         const token = req.header('Authorization').replace('Bearer ', '')
         let decoded = jwt.verify(token, process.env.JWT_SECRET)
 
+
         let user = await User.findOne({
             _id: decoded._id
         })
     
-        if(!user) res.status(404).send({error: 'Not Logged'})
+        if(!user) res.status(404).json({error: 'Not Logged'})
     
         req.token = token
         req.user = user
@@ -19,6 +20,6 @@ module.exports = async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
-        res.status(401).send({err})
+        res.status(401).json({err})
     }
 }

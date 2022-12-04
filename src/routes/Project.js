@@ -6,6 +6,8 @@ const router = express.Router()
 
 router.get('/', ProjectController.readProjectAll)
 
+router.get('/byName/:name', ProjectController.readProjectTitle)
+
 router.get('/byCreator/:creator', ProjectController.readProjectCreator)
 
 router.get('/byDate/:date', ProjectController.readProjectDate)
