@@ -1,4 +1,5 @@
 const Project = require('../database/models/Project')
+const {Update}= require('../database/models/Update')
 const url = require('url');
 
 const addProject = async (req,res) => {
@@ -30,6 +31,7 @@ const addProject = async (req,res) => {
         return res.status(400).send({err})
     }
 }
+
 function pagination (query, offset, limit) {
     if(!limit) limit = 1000
     if(!offset) offset = 0
@@ -60,8 +62,29 @@ const readProjectDate = async (req,res) => {
     return res.status(201).send({query})
 }
 
-const modifyProject = async (req,res) => {}
+const modifyProject = async (req,res) => {
+    try{
+        const result = await Project.findOneAndUpdate({title: req.params.project},req.body.new)
+    
+        if(req.body.new.title && req.body.new.title != {title: req.params.project}) await Update.updateMany({project: req.params.project},{project: req.body.new.title})
+    
+        return res.status(201).send({result})
+    }
+    catch (err) {
+        return res.status(400).send({err}) 
+    }
+}
 
-const deleteProject = async (req,res) => {}
+const deleteProject = async (req,res) => {
+    try {
+        project_deleted = await Project.deleteOne({title: req.params.project})
+        updates_deleted = await Update.deleteMany({project: req.params.project})
+
+        return res.status(201).send({project_deleted,updates_deleted})
+    }
+    catch (err) {
+        return res.status(500).send(err)
+    }
+}
 
 module.exports = {addProject, readProjectAll, readProjectCreator, readProjectDate, modifyProject, deleteProject}
