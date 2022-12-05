@@ -48,8 +48,7 @@ const addUpdate = async (req,res) => {
         for(t of topicArray) {
             TopicArray.push(new Topic({text: t}))
         }
-        let d = new Date(); 
-        let datetext = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
+        let datetext = new Date().toLocaleDateString('pt-BR');        
 
         const update = new Update({
             title: req.params.update,

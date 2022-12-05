@@ -19,8 +19,7 @@ const addProject = async (req,res) => {
                 return res.status(401).json({error: "Creator of the project doesn't exists on db"})
         }
 
-        let d = new Date(); 
-        let datetext = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
+        let datetext = new Date().toLocaleDateString('pt-BR');         
 
         const project = new Project({
             title: req.params.project,
