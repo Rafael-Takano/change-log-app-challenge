@@ -28,8 +28,7 @@ const createUser = async (req,res) => {
     try {
         const user = new User({
             login: req.body.login,
-            password: req.body.password,
-            role: req.body.role
+            password: req.body.password
         })
 
         await user.save();

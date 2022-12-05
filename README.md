@@ -45,7 +45,7 @@ The table below show all the details of the REST API interface, **any request th
 | HTTP Method | Path | Description | Addicional Parameters|
 | ----------- | ----------- | ----------- | ----------- |
 |POST|/user/signin|Logs in the user,  return its login and Bearer token|In the body of the request is necessary to send the login and password |
-|POST|/user/signup|Register an User, return its login and Bearer token|In the body of the request is necessary to send the login, password and role|
+|POST|/user/signup|Register an User, return its login and Bearer token|In the body of the request is necessary to send the login and password|
 |PUT|/user/changepassword| Changes the password of an User, return its login and Bearer token|In the body of the request is necessary to send the login, oldPassword and newPassword|
 |DELETE|/remove|Deletes an User, return a confirmation of deletion|In the body of the request is necessary to send the login and password|
 
