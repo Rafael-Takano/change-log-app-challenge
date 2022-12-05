@@ -56,7 +56,7 @@ The login acts as the primary key on the collection, and the password is encrypt
         "startedAt": "String"
     }
 ```
-The title is the primary key of the collection, the creator a foreign key of Users collection, and startAt is a date in the format "dd/mm/yyyy"
+The title is the primary key of the collection, the creator a foreign key of Users collection, and startAt is a date in the format "dd/mm/yyyy".
 
 ### Update Model
 ```
@@ -72,11 +72,11 @@ The title is the primary key of the collection, the creator a foreign key of Use
         "topics": [Topics]
     }
 ```
-The title and the project identifies the update, it means that can exist updates with the same title, but not on the same project, project references the Project collection, creator references the Users collection, updatedAt is a date in the formar "dd/mm/yyyy" and topics is an array of relevant points of the updates as a string
+The title and the project identifies the update, it means that can exist updates with the same title, but not on the same project, project references the Project collection, creator references the Users collection, updatedAt is a date in the formar "dd/mm/yyyy" and topics is an array of relevant points of the updates as a string.
 
 ## Routes
 
-The table below show all the details of the REST API interface, **any request that isn't a user related request needs the bearer token for the authentication of the procedure**
+The table below show all the details of the REST API interface, **any request that isn't a user related request needs the bearer token for the authentication of the procedure.**
 
 ### Users related requests
 | HTTP Method | Path | Description | Addicional Parameters|
