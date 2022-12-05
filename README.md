@@ -37,6 +37,43 @@ At the end of this steps, you can execute `npm run start` to run the application
 
 ## Database Organization 
 
+The dictionaries below represents the models that the application uses to store data on the database:
+
+### User Model
+```
+    User = {
+        "login": "String",
+        "Password": "String"
+    }
+```
+The login acts as the primary key on the collection, and the password is encrypted before being stored on the database.
+
+### Project Model
+```
+    Project = {
+        "title": "String",
+        "creator": "String",
+        "startedAt": "String"
+    }
+```
+The title is the primary key of the collection, the creator a foreign key of Users collection, and startAt is a date in the format "dd/mm/yyyy"
+
+### Update Model
+```
+    Topics = {
+        text: "String"
+    }
+
+    Update = {
+        "title": "String",
+        "project": "String",
+        "creator": "String",
+        "updatedAt": "String",
+        "topics": [Topics]
+    }
+```
+The title and the project identifies the update, it means that can exist updates with the same title, but not on the same project, project references the Project collection, creator references the Users collection, updatedAt is a date in the formar "dd/mm/yyyy" and topics is an array of relevant points of the updates as a string
+
 ## Routes
 
 The table below show all the details of the REST API interface, **any request that isn't a user related request needs the bearer token for the authentication of the procedure**
