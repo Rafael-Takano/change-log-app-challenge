@@ -42,7 +42,9 @@ const addProject = async (req,res) => {
 function pagination (query, offset, limit) {
     if(!limit) limit = 1000
     if(!offset) offset = 0
-    return query.slice(offset,limit)
+    limit = parseInt(limit)
+    offset = parseInt(offset)    
+    return query.slice(offset,offset+limit)
 }
 
 const readProjectAll = async (req,res) => {

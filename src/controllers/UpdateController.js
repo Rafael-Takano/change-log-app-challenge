@@ -12,7 +12,9 @@ const expandParams = function (req) {
 function pagination (query, offset, limit) {
     if(!limit) limit = 1000
     if(!offset) offset = 0
-    return query.slice(offset,limit)
+    limit = parseInt(limit)
+    offset = parseInt(offset)    
+    return query.slice(offset,offset+limit)
 }
 
 const addUpdate = async (req,res) => {
@@ -75,7 +77,7 @@ const readUpdateAll = async (req,res) => {
     if(!project) 
         res.status(400).json({err: `Project: ${req.params.project} doesn't exists in the db.`})
 
-    let query = await Update.find({project: req.params.project}).sort({startedAt: -1})
+    let query = await Update.find({project: req.params.project}).sort({updatedAt: -1})
     q_params = url.parse(req.url, true).query
     query = pagination(query,q_params['offset'],q_params['limit'])
     return res.status(201).json({query})  
@@ -89,7 +91,7 @@ const readUpdateName = async (req,res) => {
 
     let name = new RegExp(`${req.params.name}`,"i")
 
-    let query = await Update.find({project: req.params.project, name: name}).sort({startedAt: -1})
+    let query = await Update.find({project: req.params.project, title: name}).sort({updatedAt: -1})
     
     q_params = url.parse(req.url, true).query
     query = pagination(query,q_params['offset'],q_params['limit'])
@@ -103,7 +105,7 @@ const readUpdateCreator = async (req,res) => {
     if(!project) 
         return res.status(400).json({err: `Project: ${req.params.project} doesn't exists in the db.`})
 
-    let query = await Update.find({project: req.params.project, creator: req.params.creator}).sort({startedAt: -1})
+    let query = await Update.find({project: req.params.project, creator: req.params.creator}).sort({updatedAt: -1})
     
     q_params = url.parse(req.url, true).query
     query = pagination(query,q_params['offset'],q_params['limit'])
@@ -117,7 +119,7 @@ const readUpdateDate = async (req,res) => {
     if(!project) 
         return res.status(400).json({err: `Project: ${req.params.project} doesn't exists in the db.`})
 
-    let query = await Update.find({project: req.params.project, startedAt: req.params.date}).sort({startedAt: -1})    
+    let query = await Update.find({project: req.params.project, updatedAt: req.params.date}).sort({updatedAt: -1})    
     
     q_params = url.parse(req.url, true).query
     query = pagination(query,q_params['offset'],q_params['limit'])
@@ -157,7 +159,7 @@ const modifyUpdate = async (req,res) => {
                     TopicArray.push(new Topic({text: t}))
                 }
 
-                const result = await Update.findOneAndUpdate({title: req.params.update, project: req.params.project}, {title: req.body.title, creator: req.body.creator, topics: TopicArray})            
+                const result = await Update.findOneAndUpdate({title: req.params.update, project: req.params.project}, {title: req.body.title, creator: req.body.creator, updatedAt: req.body.updatedAt,topics: TopicArray})            
                 return res.status(201).json({result})
             }
 
