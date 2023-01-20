@@ -16,3 +16,11 @@ app.use('/project', auth, project)
 app.listen(port, () => {
     console.log(`Listen on port: ${port}`)
 })
+
+// feedbacks: 
+// filters on query
+// shorter paths
+// use auth to know which user is it
+// when are getting projects send the updates as well
+
+// swagger -> commits to 
